@@ -1,0 +1,19 @@
+2025-05-23 15:37:12,662 - llm_manager - INFO - OpenAI LLM initialized successfully
+2025-05-23 15:37:12,664 - llm_manager - INFO - Claude LLM initialized successfully
+2025-05-23 15:37:12,691 - llm_manager - INFO - Gemini LLM initialized successfully
+2025-05-23 15:37:12,691 - llm_manager - INFO - Initialized 3 LLMs: openai, claude, gemini
+2025-05-23 15:37:12,725 - rag_service - INFO - OpenAI embeddings initialized
+2025-05-23 15:37:12,857 - rag_service - ERROR - Error initializing vector store: Descriptors cannot be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+2025-05-23 15:37:12,857 - root - ERROR - Failed to start server: Descriptors cannot be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates

@@ -1,0 +1,19 @@
+# OpenAI API Configuration
+OPENAI_API_KEY=ysk-proj-nvtAc4mqgdCIvh6C4Z0pfXFYMk4t-1YOzCKYeFKzjR7hASoBCMuUYHEEAi6-Ioz49pb1H4lNPcT3BlbkFJ_5xUUYClUe5Jx6I294LRYPC5IgWE6RhHQDA4BVUVeNrTf_g-_b0Kjfs1AdSpqsIVkSwplgpF8A
+
+# Anthropic Claude API Configuration
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+
+# Google Gemini API Configuration
+GOOGLE_API_KEY=your_google_api_key_here
+
+# Optional: Database Configuration
+CHROMA_DB_PATH=./chroma_db
+
+# Optional: Server Configuration
+HOST=0.0.0.0
+PORT=8000
+DEBUG=True
+
+# Optional: Logging Configuration
+LOG_LEVEL=INFO

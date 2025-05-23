@@ -1,0 +1,684 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2299.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #2a2c33; -webkit-text-stroke: #2a2c33}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #db3f39; -webkit-text-stroke: #db3f39}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #42933e; -webkit-text-stroke: #42933e}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #2a2c33; -webkit-text-stroke: #2a2c33; min-height: 14.0px}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #a75705; -webkit-text-stroke: #a75705}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #325eee; -webkit-text-stroke: #325eee}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Menlo; color: #8f9096; -webkit-text-stroke: #8f9096}
+    span.s1 {font-kerning: none}
+    span.s2 {font-kerning: none; color: #db3f39; -webkit-text-stroke: 0px #db3f39}
+    span.s3 {font-kerning: none; color: #a75705; -webkit-text-stroke: 0px #a75705}
+    span.s4 {font-kerning: none; color: #42933e; -webkit-text-stroke: 0px #42933e}
+    span.s5 {font-kerning: none; color: #2a2c33; -webkit-text-stroke: 0px #2a2c33}
+    span.s6 {font-kerning: none; color: #325eee; -webkit-text-stroke: 0px #325eee}
+    span.s7 {font-kerning: none; color: #930093; -webkit-text-stroke: 0px #930093}
+    span.s8 {font-kerning: none; color: #8f9096; -webkit-text-stroke: 0px #8f9096}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;</span><span class="s2">html </span><span class="s3">lang</span><span class="s1">="</span><span class="s4">en</span><span class="s1">"&gt;</span></p>
+<p class="p2"><span class="s5">&lt;</span><span class="s1">head</span><span class="s5">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;</span><span class="s2">meta </span><span class="s3">charset</span><span class="s1">="</span><span class="s4">UTF-8</span><span class="s1">"&gt;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">    </span>&lt;</span><span class="s2">meta </span><span class="s3">name</span><span class="s5">="</span><span class="s1">viewport</span><span class="s5">"</span><span class="s2"> </span><span class="s3">content</span><span class="s5">="</span><span class="s1">width=device-width, initial-scale=1.0</span><span class="s5">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;</span><span class="s2">title</span><span class="s1">&gt;RAG LLM Interface&lt;/</span><span class="s2">title</span><span class="s1">&gt;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">    </span>&lt;</span><span class="s2">script </span><span class="s3">src</span><span class="s5">="</span><span class="s1">https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js</span><span class="s5">"&gt;&lt;/</span><span class="s2">script</span><span class="s5">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;</span><span class="s2">style</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">*</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin</span><span class="s1">: </span><span class="s3">0</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">0</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">box-sizing</span><span class="s1">: border-box;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">body</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-family</span><span class="s1">: </span><span class="s4">'Segoe UI'</span><span class="s1">, Tahoma, Geneva, Verdana, sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: </span><span class="s6">linear-gradient</span><span class="s1">(</span><span class="s3">135</span><span class="s1">deg, #667eea </span><span class="s3">0</span><span class="s1">%, #764ba2 </span><span class="s3">100</span><span class="s1">%);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">min-height</span><span class="s1">: </span><span class="s3">100</span><span class="s1">vh;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">20</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">.container</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">max-width</span><span class="s1">: </span><span class="s3">1200</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin</span><span class="s1">: </span><span class="s3">0</span><span class="s1"> auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">20</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">box-shadow</span><span class="s1">: </span><span class="s3">0</span><span class="s1"> </span><span class="s3">20</span><span class="s1">px </span><span class="s3">40</span><span class="s1">px </span><span class="s6">rgba</span><span class="s1">(</span><span class="s3">0</span><span class="s1">,</span><span class="s3">0</span><span class="s1">,</span><span class="s3">0</span><span class="s1">,</span><span class="s3">0.1</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">overflow</span><span class="s1">: hidden;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">.header</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: </span><span class="s6">linear-gradient</span><span class="s1">(</span><span class="s3">135</span><span class="s1">deg, #4f46e5 </span><span class="s3">0</span><span class="s1">%, #7c3aed </span><span class="s3">100</span><span class="s1">%);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">30</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">text-align</span><span class="s1">: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">.header h1</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-size</span><span class="s1">: </span><span class="s3">2.5</span><span class="s1">rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin-bottom</span><span class="s1">: </span><span class="s3">10</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">.header p</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">opacity</span><span class="s1">: </span><span class="s3">0.9</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-size</span><span class="s1">: </span><span class="s3">1.1</span><span class="s1">rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.main-content</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">display</span><span class="s1">: grid;</span></p>
+<p class="p2"><span class="s5"><span class="Apple-converted-space">            </span></span><span class="s1">grid-template-columns</span><span class="s5">: </span><span class="s3">1</span><span class="s5">fr </span><span class="s3">2</span><span class="s5">fr;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">gap</span><span class="s1">: </span><span class="s3">0</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">min-height</span><span class="s1">: </span><span class="s3">600</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">.sidebar</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #f8fafc;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">30</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-right</span><span class="s1">: </span><span class="s3">1</span><span class="s1">px solid #e2e8f0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">.chat-area</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">30</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">display</span><span class="s1">: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">flex-direction</span><span class="s1">: column;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.upload-section</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin-bottom</span><span class="s1">: </span><span class="s3">30</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.upload-section h3</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: #1e293b;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin-bottom</span><span class="s1">: </span><span class="s3">15</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-size</span><span class="s1">: </span><span class="s3">1.3</span><span class="s1">rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.file-upload</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border</span><span class="s1">: </span><span class="s3">2</span><span class="s1">px dashed #cbd5e1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">12</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">30</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">text-align</span><span class="s1">: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">cursor</span><span class="s1">: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transition</span><span class="s1">: all </span><span class="s3">0.3</span><span class="s1">s ease;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin-bottom</span><span class="s1">: </span><span class="s3">20</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.file-upload:hover</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-color</span><span class="s1">: #4f46e5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #f1f5f9;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.file-upload.dragover</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-color</span><span class="s1">: #4f46e5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #eef2ff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.upload-icon</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-size</span><span class="s1">: </span><span class="s3">3</span><span class="s1">rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: #94a3b8;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin-bottom</span><span class="s1">: </span><span class="s3">15</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.upload-text</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: #64748b;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-size</span><span class="s1">: </span><span class="s3">1.1</span><span class="s1">rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.file-input</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">display</span><span class="s1">: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.upload-btn</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #4f46e5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border</span><span class="s1">: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">12</span><span class="s1">px </span><span class="s3">24</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">8</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">cursor</span><span class="s1">: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-size</span><span class="s1">: </span><span class="s3">1</span><span class="s1">rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transition</span><span class="s1">: background </span><span class="s3">0.3</span><span class="s1">s ease;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.upload-btn:hover</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #4338ca;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.upload-btn:disabled</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #94a3b8;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">cursor</span><span class="s1">: not-allowed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.status-section</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin-bottom</span><span class="s1">: </span><span class="s3">20</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">.status</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">15</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">8</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-weight</span><span class="s1">: </span><span class="s3">500</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">text-align</span><span class="s1">: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.status.processing</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #fef3c7;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: #92400e;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border</span><span class="s1">: </span><span class="s3">1</span><span class="s1">px solid #fbbf24;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.status.ready</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #d1fae5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: #065f46;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border</span><span class="s1">: </span><span class="s3">1</span><span class="s1">px solid #34d399;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.status.error</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #fee2e2;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: #991b1b;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border</span><span class="s1">: </span><span class="s3">1</span><span class="s1">px solid #f87171;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.documents-list</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">max-height</span><span class="s1">: </span><span class="s3">200</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">overflow-y</span><span class="s1">: auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.document-item</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">12</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin-bottom</span><span class="s1">: </span><span class="s3">8</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">8</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border</span><span class="s1">: </span><span class="s3">1</span><span class="s1">px solid #e2e8f0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">display</span><span class="s1">: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">justify-content</span><span class="s1">: space-between;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">align-items</span><span class="s1">: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.document-name</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-weight</span><span class="s1">: </span><span class="s3">500</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: #1e293b;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.remove-btn</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #ef4444;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border</span><span class="s1">: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">4</span><span class="s1">px </span><span class="s3">8</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">4</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">cursor</span><span class="s1">: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-size</span><span class="s1">: </span><span class="s3">0.8</span><span class="s1">rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.chat-messages</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">flex</span><span class="s1">: </span><span class="s3">1</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">overflow-y</span><span class="s1">: auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">20</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #f8fafc;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">12</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin-bottom</span><span class="s1">: </span><span class="s3">20</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">max-height</span><span class="s1">: </span><span class="s3">400</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">.message</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin-bottom</span><span class="s1">: </span><span class="s3">15</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">15</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">12</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">max-width</span><span class="s1">: </span><span class="s3">80</span><span class="s1">%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.message.user</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #4f46e5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin-left</span><span class="s1">: auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.message.assistant</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border</span><span class="s1">: </span><span class="s3">1</span><span class="s1">px solid #e2e8f0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: #1e293b;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.message.system</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #fbbf24;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: #92400e;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">text-align</span><span class="s1">: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">max-width</span><span class="s1">: </span><span class="s3">100</span><span class="s1">%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.input-section</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">display</span><span class="s1">: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">gap</span><span class="s1">: </span><span class="s3">10</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.question-input</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">flex</span><span class="s1">: </span><span class="s3">1</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">15</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border</span><span class="s1">: </span><span class="s3">1</span><span class="s1">px solid #d1d5db;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">12</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-size</span><span class="s1">: </span><span class="s3">1</span><span class="s1">rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">outline</span><span class="s1">: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transition</span><span class="s1">: border-color </span><span class="s3">0.3</span><span class="s1">s ease;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.question-input:focus</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-color</span><span class="s1">: #4f46e5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">.send-btn</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #4f46e5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color</span><span class="s1">: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border</span><span class="s1">: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">padding</span><span class="s1">: </span><span class="s3">15</span><span class="s1">px </span><span class="s3">25</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">12</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">cursor</span><span class="s1">: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-size</span><span class="s1">: </span><span class="s3">1</span><span class="s1">rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transition</span><span class="s1">: background </span><span class="s3">0.3</span><span class="s1">s ease;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.send-btn:hover</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #4338ca;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.send-btn:disabled</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #94a3b8;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">cursor</span><span class="s1">: not-allowed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s4">.loading</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">display</span><span class="s1">: inline-block;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">width</span><span class="s1">: </span><span class="s3">20</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">height</span><span class="s1">: </span><span class="s3">20</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border</span><span class="s1">: </span><span class="s3">3</span><span class="s1">px solid #f3f3f3;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-top</span><span class="s1">: </span><span class="s3">3</span><span class="s1">px solid #4f46e5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">50</span><span class="s1">%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">animation</span><span class="s1">: spin </span><span class="s3">1</span><span class="s1">s linear infinite;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">@keyframes spin</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s4">0%</span><span class="s1"> { </span><span class="s2">transform</span><span class="s1">: </span><span class="s6">rotate</span><span class="s1">(</span><span class="s3">0</span><span class="s1">deg); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s4">100%</span><span class="s1"> { </span><span class="s2">transform</span><span class="s1">: </span><span class="s6">rotate</span><span class="s1">(</span><span class="s3">360</span><span class="s1">deg); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.progress-bar</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">width</span><span class="s1">: </span><span class="s3">100</span><span class="s1">%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">height</span><span class="s1">: </span><span class="s3">8</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #e2e8f0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius</span><span class="s1">: </span><span class="s3">4</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">overflow</span><span class="s1">: hidden;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">margin-top</span><span class="s1">: </span><span class="s3">10</span><span class="s1">px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">.progress-fill</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">height</span><span class="s1">: </span><span class="s3">100</span><span class="s1">%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background</span><span class="s1">: #4f46e5;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">width</span><span class="s1">: </span><span class="s3">0</span><span class="s1">%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transition</span><span class="s1">: width </span><span class="s3">0.3</span><span class="s1">s ease;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">animation</span><span class="s1">: pulse </span><span class="s3">2</span><span class="s1">s infinite;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1">@keyframes pulse</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s4">0%</span><span class="s1">,</span><span class="s4"> 100%</span><span class="s1"> { </span><span class="s2">opacity</span><span class="s1">: </span><span class="s3">1</span><span class="s1">; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s4">50%</span><span class="s1"> { </span><span class="s2">opacity</span><span class="s1">: </span><span class="s3">0.7</span><span class="s1">; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">@media </span><span class="s1">(</span><span class="s2">max-width</span><span class="s1">:</span><span class="s3"> 768px</span><span class="s1">) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s4">.main-content</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s2">grid-template-columns</span><span class="s1">: </span><span class="s3">1</span><span class="s1">fr;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s4">.header h1</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s2">font-size</span><span class="s1">: </span><span class="s3">2</span><span class="s1">rem;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/</span><span class="s2">style</span><span class="s1">&gt;</span></p>
+<p class="p2"><span class="s5">&lt;/</span><span class="s1">head</span><span class="s5">&gt;</span></p>
+<p class="p2"><span class="s5">&lt;</span><span class="s1">body</span><span class="s5">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">container</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">header</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;</span><span class="s2">h1</span><span class="s1">&gt;🤖 RAG LLM Interface&lt;/</span><span class="s2">h1</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;</span><span class="s2">p</span><span class="s1">&gt;Upload documents and ask questions with intelligent retrieval&lt;/</span><span class="s2">p</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">main-content</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">sidebar</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">upload-section</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;</span><span class="s2">h3</span><span class="s1">&gt;📄 Document Upload&lt;/</span><span class="s2">h3</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">file-upload</span><span class="s1">"</span><span class="s2"> </span><span class="s3">id</span><span class="s1">="</span><span class="s4">fileUpload</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">upload-icon</span><span class="s1">"&gt;📁&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">upload-text</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;</span><span class="s2">p</span><span class="s1">&gt;Drop files here or click to browse&lt;/</span><span class="s2">p</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;</span><span class="s2">small</span><span class="s1">&gt;Supports PDF, TXT, DOCX, MD files&lt;/</span><span class="s2">small</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;</span><span class="s2">input </span><span class="s3">type</span><span class="s1">="</span><span class="s4">file</span><span class="s1">"</span><span class="s2"> </span><span class="s3">class</span><span class="s1">="</span><span class="s4">file-input</span><span class="s1">"</span><span class="s2"> </span><span class="s3">id</span><span class="s1">="</span><span class="s4">fileInput</span><span class="s1">"</span><span class="s2"> </span><span class="s3">multiple</span><span class="s2"><span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                               </span></span><span class="s3">accept</span><span class="s5">="</span><span class="s4">.pdf,.txt,.docx,.md,.doc</span><span class="s5">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;</span><span class="s2">button </span><span class="s3">class</span><span class="s1">="</span><span class="s4">upload-btn</span><span class="s1">"</span><span class="s2"> </span><span class="s3">id</span><span class="s1">="</span><span class="s4">uploadBtn</span><span class="s1">"&gt;Upload Documents&lt;/</span><span class="s2">button</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">status-section</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">status ready</span><span class="s1">"</span><span class="s2"> </span><span class="s3">id</span><span class="s1">="</span><span class="s4">systemStatus</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>✅ System Ready</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s5">="</span><span class="s1">progress-bar</span><span class="s5">"</span><span class="s2"> </span><span class="s3">id</span><span class="s5">="</span><span class="s1">progressBar</span><span class="s5">"</span><span class="s2"> </span><span class="s3">style</span><span class="s5">="</span><span class="s1">display: none;</span><span class="s5">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">progress-fill</span><span class="s1">"</span><span class="s2"> </span><span class="s3">id</span><span class="s1">="</span><span class="s4">progressFill</span><span class="s1">"&gt;&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">upload-section</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;</span><span class="s2">h3</span><span class="s1">&gt;📚 Uploaded Documents&lt;/</span><span class="s2">h3</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">documents-list</span><span class="s1">"</span><span class="s2"> </span><span class="s3">id</span><span class="s1">="</span><span class="s4">documentsList</span><span class="s1">"&gt;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                        </span>&lt;</span><span class="s2">p </span><span class="s3">style</span><span class="s5">="</span><span class="s1">color: #64748b; text-align: center; padding: 20px;</span><span class="s5">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>No documents uploaded yet</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/</span><span class="s2">p</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">chat-area</span><span class="s1">"&gt;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s5">="</span><span class="s1">chat-messages</span><span class="s5">"</span><span class="s2"> </span><span class="s3">id</span><span class="s5">="</span><span class="s1">chatMessages</span><span class="s5">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">message system</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>Welcome! Upload some documents and start asking questions. The system will use RAG to find relevant information from your documents.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;</span><span class="s2">div </span><span class="s3">class</span><span class="s1">="</span><span class="s4">input-section</span><span class="s1">"&gt;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span>&lt;</span><span class="s2">input </span><span class="s3">type</span><span class="s5">="</span><span class="s1">text</span><span class="s5">"</span><span class="s2"> </span><span class="s3">class</span><span class="s5">="</span><span class="s1">question-input</span><span class="s5">"</span><span class="s2"> </span><span class="s3">id</span><span class="s5">="</span><span class="s1">questionInput</span><span class="s5">"</span><span class="s2"><span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="s2"><span class="Apple-converted-space">                           </span></span><span class="s3">placeholder</span><span class="s5">="</span><span class="s1">Ask a question about your documents...</span><span class="s5">"</span><span class="s2"><span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                           </span></span><span class="s3">disabled</span><span class="s5">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;</span><span class="s2">button </span><span class="s3">class</span><span class="s1">="</span><span class="s4">send-btn</span><span class="s1">"</span><span class="s2"> </span><span class="s3">id</span><span class="s1">="</span><span class="s4">sendBtn</span><span class="s1">"</span><span class="s2"> </span><span class="s3">disabled</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>Send</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/</span><span class="s2">button</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/</span><span class="s2">div</span><span class="s1">&gt;</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;</span><span class="s2">script</span><span class="s1">&gt;</span></p>
+<p class="p5"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s7">class</span><span class="s5"> </span><span class="s1">RAGInterface</span><span class="s5"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">constructor</span><span class="s1">() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.documents </span><span class="s6">=</span><span class="s1"> [];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.isProcessing </span><span class="s6">=</span><span class="s1"> </span><span class="s3">false</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.vectorStore </span><span class="s6">=</span><span class="s1"> </span><span class="s7">null</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">initializeElements</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">bindEvents</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p6"><span class="s5"><span class="Apple-converted-space">            </span></span><span class="s1">initializeElements</span><span class="s5">() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.fileUpload </span><span class="s6">=</span><span class="s1"> </span><span class="s6">document</span><span class="s1">.</span><span class="s6">getElementById</span><span class="s1">(</span><span class="s4">'fileUpload'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.fileInput </span><span class="s6">=</span><span class="s1"> </span><span class="s6">document</span><span class="s1">.</span><span class="s6">getElementById</span><span class="s1">(</span><span class="s4">'fileInput'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.uploadBtn </span><span class="s6">=</span><span class="s1"> </span><span class="s6">document</span><span class="s1">.</span><span class="s6">getElementById</span><span class="s1">(</span><span class="s4">'uploadBtn'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.systemStatus </span><span class="s6">=</span><span class="s1"> </span><span class="s6">document</span><span class="s1">.</span><span class="s6">getElementById</span><span class="s1">(</span><span class="s4">'systemStatus'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.progressBar </span><span class="s6">=</span><span class="s1"> </span><span class="s6">document</span><span class="s1">.</span><span class="s6">getElementById</span><span class="s1">(</span><span class="s4">'progressBar'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.progressFill </span><span class="s6">=</span><span class="s1"> </span><span class="s6">document</span><span class="s1">.</span><span class="s6">getElementById</span><span class="s1">(</span><span class="s4">'progressFill'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.documentsList </span><span class="s6">=</span><span class="s1"> </span><span class="s6">document</span><span class="s1">.</span><span class="s6">getElementById</span><span class="s1">(</span><span class="s4">'documentsList'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.chatMessages </span><span class="s6">=</span><span class="s1"> </span><span class="s6">document</span><span class="s1">.</span><span class="s6">getElementById</span><span class="s1">(</span><span class="s4">'chatMessages'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.questionInput </span><span class="s6">=</span><span class="s1"> </span><span class="s6">document</span><span class="s1">.</span><span class="s6">getElementById</span><span class="s1">(</span><span class="s4">'questionInput'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.sendBtn </span><span class="s6">=</span><span class="s1"> </span><span class="s6">document</span><span class="s1">.</span><span class="s6">getElementById</span><span class="s1">(</span><span class="s4">'sendBtn'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">bindEvents</span><span class="s1">() {</span></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">                </span></span><span class="s1"><i>// File upload events</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.fileUpload.</span><span class="s6">addEventListener</span><span class="s1">(</span><span class="s4">'click'</span><span class="s1">, () </span><span class="s6">=&gt;</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.fileInput.</span><span class="s6">click</span><span class="s1">());</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.fileInput.</span><span class="s6">addEventListener</span><span class="s1">(</span><span class="s4">'change'</span><span class="s1">, </span><span class="s7">this</span><span class="s1">.</span><span class="s6">handleFileSelect</span><span class="s1">.</span><span class="s6">bind</span><span class="s1">(</span><span class="s7">this</span><span class="s1">));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.uploadBtn.</span><span class="s6">addEventListener</span><span class="s1">(</span><span class="s4">'click'</span><span class="s1">, </span><span class="s7">this</span><span class="s1">.</span><span class="s6">uploadDocuments</span><span class="s1">.</span><span class="s6">bind</span><span class="s1">(</span><span class="s7">this</span><span class="s1">));</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">                </span></span><span class="s1"><i>// Drag and drop events</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.fileUpload.</span><span class="s6">addEventListener</span><span class="s1">(</span><span class="s4">'dragover'</span><span class="s1">, </span><span class="s7">this</span><span class="s1">.</span><span class="s6">handleDragOver</span><span class="s1">.</span><span class="s6">bind</span><span class="s1">(</span><span class="s7">this</span><span class="s1">));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.fileUpload.</span><span class="s6">addEventListener</span><span class="s1">(</span><span class="s4">'dragleave'</span><span class="s1">, </span><span class="s7">this</span><span class="s1">.</span><span class="s6">handleDragLeave</span><span class="s1">.</span><span class="s6">bind</span><span class="s1">(</span><span class="s7">this</span><span class="s1">));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.fileUpload.</span><span class="s6">addEventListener</span><span class="s1">(</span><span class="s4">'drop'</span><span class="s1">, </span><span class="s7">this</span><span class="s1">.</span><span class="s6">handleDrop</span><span class="s1">.</span><span class="s6">bind</span><span class="s1">(</span><span class="s7">this</span><span class="s1">));</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s8"><i>// Chat events</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.sendBtn.</span><span class="s6">addEventListener</span><span class="s1">(</span><span class="s4">'click'</span><span class="s1">, </span><span class="s7">this</span><span class="s1">.</span><span class="s6">sendMessage</span><span class="s1">.</span><span class="s6">bind</span><span class="s1">(</span><span class="s7">this</span><span class="s1">));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.questionInput.</span><span class="s6">addEventListener</span><span class="s1">(</span><span class="s4">'keypress'</span><span class="s1">, (e) </span><span class="s6">=&gt;</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">if</span><span class="s1"> (e.key </span><span class="s6">===</span><span class="s1"> </span><span class="s4">'Enter'</span><span class="s1"> </span><span class="s6">&amp;&amp;</span><span class="s1"> </span><span class="s6">!</span><span class="s1">e.shiftKey) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>e.</span><span class="s6">preventDefault</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">sendMessage</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">handleDragOver</span><span class="s1">(e) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>e.</span><span class="s6">preventDefault</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.fileUpload.classList.</span><span class="s6">add</span><span class="s1">(</span><span class="s4">'dragover'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">handleDragLeave</span><span class="s1">(e) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>e.</span><span class="s6">preventDefault</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.fileUpload.classList.</span><span class="s6">remove</span><span class="s1">(</span><span class="s4">'dragover'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">handleDrop</span><span class="s1">(e) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>e.</span><span class="s6">preventDefault</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.fileUpload.classList.</span><span class="s6">remove</span><span class="s1">(</span><span class="s4">'dragover'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> files </span><span class="s6">=</span><span class="s1"> </span><span class="s3">Array</span><span class="s1">.</span><span class="s7">from</span><span class="s1">(e.dataTransfer.files);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.fileInput.files </span><span class="s6">=</span><span class="s1"> e.dataTransfer.files;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">handleFileSelect</span><span class="s1">({ </span><span class="s2">target</span><span class="s6">:</span><span class="s1"> { files } });</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">handleFileSelect</span><span class="s1">(e) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> files </span><span class="s6">=</span><span class="s1"> </span><span class="s3">Array</span><span class="s1">.</span><span class="s7">from</span><span class="s1">(e.target.files);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> validFiles </span><span class="s6">=</span><span class="s1"> files.</span><span class="s6">filter</span><span class="s1">(file </span><span class="s6">=&gt;</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">const</span><span class="s1"> validTypes </span><span class="s6">=</span><span class="s1"> [</span><span class="s4">'.pdf'</span><span class="s1">, </span><span class="s4">'.txt'</span><span class="s1">, </span><span class="s4">'.docx'</span><span class="s1">, </span><span class="s4">'.md'</span><span class="s1">, </span><span class="s4">'.doc'</span><span class="s1">];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">return</span><span class="s1"> validTypes.</span><span class="s6">some</span><span class="s1">(type </span><span class="s6">=&gt;</span><span class="s1"> file.name.</span><span class="s6">toLowerCase</span><span class="s1">().</span><span class="s6">endsWith</span><span class="s1">(type));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">if</span><span class="s1"> (validFiles.length </span><span class="s6">!==</span><span class="s1"> files.length) {</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s5">.</span><span class="s6">addMessage</span><span class="s5">(</span><span class="s1">'system'</span><span class="s5">, </span><span class="s1">'Some files were filtered out. Only PDF, TXT, DOCX, and MD files are supported.'</span><span class="s5">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">updateUploadButton</span><span class="s1">(validFiles.length </span><span class="s6">&gt;</span><span class="s1"> </span><span class="s3">0</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">updateUploadButton</span><span class="s1">(hasFiles) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.uploadBtn.disabled </span><span class="s6">=</span><span class="s1"> </span><span class="s6">!</span><span class="s1">hasFiles </span><span class="s6">||</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.isProcessing;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.uploadBtn.textContent </span><span class="s6">=</span><span class="s1"> hasFiles </span><span class="s6">?</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>`</span><span class="s4">Upload </span><span class="s1">${this.fileInput.files.length}</span><span class="s4"> file(s)</span><span class="s1">` </span><span class="s6">:</span><span class="s1"> </span><span class="s4">'Upload Documents'</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">async</span><span class="s1"> </span><span class="s6">uploadDocuments</span><span class="s1">() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> files </span><span class="s6">=</span><span class="s1"> </span><span class="s3">Array</span><span class="s1">.</span><span class="s7">from</span><span class="s1">(</span><span class="s7">this</span><span class="s1">.fileInput.files);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">if</span><span class="s1"> (files.length </span><span class="s6">===</span><span class="s1"> </span><span class="s3">0</span><span class="s1">) </span><span class="s7">return</span><span class="s1">;</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.isProcessing </span><span class="s6">=</span><span class="s1"> </span><span class="s3">true</span><span class="s1">;</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s5">.</span><span class="s6">updateStatus</span><span class="s5">(</span><span class="s1">'processing'</span><span class="s5">, </span><span class="s1">'⏳ Processing documents...'</span><span class="s5">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">showProgress</span><span class="s1">();</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">try</span><span class="s1"> {</span></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s1"><i>// Simulate document processing</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">for</span><span class="s1"> (</span><span class="s7">let</span><span class="s1"> i </span><span class="s6">=</span><span class="s1"> </span><span class="s3">0</span><span class="s1">; i </span><span class="s6">&lt;</span><span class="s1"> files.length; i</span><span class="s6">++</span><span class="s1">) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s7">const</span><span class="s1"> file </span><span class="s6">=</span><span class="s1"> files[i];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s7">await</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.</span><span class="s6">processDocument</span><span class="s1">(file);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">updateProgress</span><span class="s1">((i </span><span class="s6">+</span><span class="s1"> </span><span class="s3">1</span><span class="s1">) </span><span class="s6">/</span><span class="s1"> files.length </span><span class="s6">*</span><span class="s1"> </span><span class="s3">100</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s1"><i>// Simulate embedding creation</i></span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s5">.</span><span class="s6">updateStatus</span><span class="s5">(</span><span class="s1">'processing'</span><span class="s5">, </span><span class="s1">'🧠 Creating embeddings...'</span><span class="s5">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">await</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.</span><span class="s6">sleep</span><span class="s1">(</span><span class="s3">2000</span><span class="s1">);</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s1"><i>// Add documents to store</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>files.</span><span class="s6">forEach</span><span class="s1">(file </span><span class="s6">=&gt;</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s7">this</span><span class="s1">.documents.</span><span class="s6">push</span><span class="s1">({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span></span><span class="s2">name</span><span class="s6">:</span><span class="s1"> file.name,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span></span><span class="s2">size</span><span class="s6">:</span><span class="s1"> file.size,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span></span><span class="s2">processed</span><span class="s6">:</span><span class="s1"> </span><span class="s3">true</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>});</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">updateDocumentsList</span><span class="s1">();</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s5">.</span><span class="s6">updateStatus</span><span class="s5">(</span><span class="s1">'ready'</span><span class="s5">, </span><span class="s1">'✅ Documents processed and ready!'</span><span class="s5">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">enableChat</span><span class="s1">();</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s5">.</span><span class="s6">addMessage</span><span class="s5">(</span><span class="s1">'system'</span><span class="s5">, `</span><span class="s1">Successfully processed </span><span class="s5">${files.length}</span><span class="s1"> document(s). You can now ask questions!</span><span class="s5">`);</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} </span><span class="s7">catch</span><span class="s1"> (error) {</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s5">.</span><span class="s6">updateStatus</span><span class="s5">(</span><span class="s1">'error'</span><span class="s5">, </span><span class="s1">'❌ Error processing documents'</span><span class="s5">);</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s5">.</span><span class="s6">addMessage</span><span class="s5">(</span><span class="s1">'system'</span><span class="s5">, </span><span class="s1">'Error processing documents. Please try again.'</span><span class="s5">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} </span><span class="s7">finally</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.isProcessing </span><span class="s6">=</span><span class="s1"> </span><span class="s3">false</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">hideProgress</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.fileInput.value </span><span class="s6">=</span><span class="s1"> </span><span class="s4">''</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">updateUploadButton</span><span class="s1">(</span><span class="s3">false</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">async</span><span class="s1"> </span><span class="s6">processDocument</span><span class="s1">(file) {</span></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">                </span></span><span class="s1"><i>// Simulate document parsing based on file type</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> extension </span><span class="s6">=</span><span class="s1"> file.name.</span><span class="s6">split</span><span class="s1">(</span><span class="s4">'.'</span><span class="s1">).</span><span class="s6">pop</span><span class="s1">().</span><span class="s6">toLowerCase</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">let</span><span class="s1"> processingTime </span><span class="s6">=</span><span class="s1"> </span><span class="s3">1000</span><span class="s1">; </span><span class="s8"><i>// Base processing time</i></span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">switch</span><span class="s1"> (extension) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">case</span><span class="s1"> </span><span class="s4">'pdf'</span><span class="s6">:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>processingTime </span><span class="s6">=</span><span class="s1"> </span><span class="s3">2000</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s7">break</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">case</span><span class="s1"> </span><span class="s4">'docx'</span><span class="s6">:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>processingTime </span><span class="s6">=</span><span class="s1"> </span><span class="s3">1500</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s7">break</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">case</span><span class="s1"> </span><span class="s4">'txt'</span><span class="s6">:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">case</span><span class="s1"> </span><span class="s4">'md'</span><span class="s6">:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>processingTime </span><span class="s6">=</span><span class="s1"> </span><span class="s3">500</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s7">break</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">await</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.</span><span class="s6">sleep</span><span class="s1">(processingTime);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">async</span><span class="s1"> </span><span class="s6">sendMessage</span><span class="s1">() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> question </span><span class="s6">=</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.questionInput.value.</span><span class="s6">trim</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">if</span><span class="s1"> (</span><span class="s6">!</span><span class="s1">question </span><span class="s6">||</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.isProcessing) </span><span class="s7">return</span><span class="s1">;</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">if</span><span class="s1"> (</span><span class="s7">this</span><span class="s1">.documents.length </span><span class="s6">===</span><span class="s1"> </span><span class="s3">0</span><span class="s1">) {</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s5">.</span><span class="s6">addMessage</span><span class="s5">(</span><span class="s1">'system'</span><span class="s5">, </span><span class="s1">'Please upload documents first before asking questions.'</span><span class="s5">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">return</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">addMessage</span><span class="s1">(</span><span class="s4">'user'</span><span class="s1">, question);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.questionInput.value </span><span class="s6">=</span><span class="s1"> </span><span class="s4">''</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.sendBtn.disabled </span><span class="s6">=</span><span class="s1"> </span><span class="s3">true</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.sendBtn.innerHTML </span><span class="s6">=</span><span class="s1"> </span><span class="s4">'&lt;div class="loading"&gt;&lt;/div&gt;'</span><span class="s1">;</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">try</span><span class="s1"> {</span></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s1"><i>// Simulate RAG process</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">const</span><span class="s1"> response </span><span class="s6">=</span><span class="s1"> </span><span class="s7">await</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.</span><span class="s6">performRAG</span><span class="s1">(question);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">addMessage</span><span class="s1">(</span><span class="s4">'assistant'</span><span class="s1">, response);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} </span><span class="s7">catch</span><span class="s1"> (error) {</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s5">.</span><span class="s6">addMessage</span><span class="s5">(</span><span class="s1">'assistant'</span><span class="s5">, </span><span class="s1">'Sorry, I encountered an error while processing your question.'</span><span class="s5">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} </span><span class="s7">finally</span><span class="s1"> {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.sendBtn.disabled </span><span class="s6">=</span><span class="s1"> </span><span class="s3">false</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.sendBtn.textContent </span><span class="s6">=</span><span class="s1"> </span><span class="s4">'Send'</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">async</span><span class="s1"> </span><span class="s6">performRAG</span><span class="s1">(question) {</span></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">                </span></span><span class="s1"><i>// Simulate retrieval and generation</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">await</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.</span><span class="s6">sleep</span><span class="s1">(</span><span class="s3">1500</span><span class="s1">);</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">                </span></span><span class="s1"><i>// Simple keyword matching simulation for demo</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> keywords </span><span class="s6">=</span><span class="s1"> question.</span><span class="s6">toLowerCase</span><span class="s1">().</span><span class="s6">split</span><span class="s1">(</span><span class="s4">' '</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> relevantDocs </span><span class="s6">=</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.documents.</span><span class="s6">filter</span><span class="s1">(doc </span><span class="s6">=&gt;</span><span class="s1"><span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>keywords.</span><span class="s6">some</span><span class="s1">(keyword </span><span class="s6">=&gt;</span><span class="s1"> doc.name.</span><span class="s6">toLowerCase</span><span class="s1">().</span><span class="s6">includes</span><span class="s1">(keyword))</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>);</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">                </span></span><span class="s1"><i>// Simulate relevance check</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> hasRelevantInfo </span><span class="s6">=</span><span class="s1"> </span><span class="s3">Math</span><span class="s1">.</span><span class="s6">random</span><span class="s1">() </span><span class="s6">&gt;</span><span class="s1"> </span><span class="s3">0.3</span><span class="s1">; </span><span class="s8"><i>// 70% chance of finding relevant info</i></span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">if</span><span class="s1"> (</span><span class="s6">!</span><span class="s1">hasRelevantInfo) {</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s7">return</span><span class="s5"> </span><span class="s1">"Nothing relevant found."</span><span class="s5">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">                </span></span><span class="s1"><i>// Generate a mock response based on the question</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> responses </span><span class="s6">=</span><span class="s1"> [</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span>`</span><span class="s1">Based on the uploaded documents, I found relevant information about "</span><span class="s5">${question}</span><span class="s1">". The documents contain detailed insights that address your query.</span><span class="s5">`,</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span>`</span><span class="s1">According to the information in your documents, here's what I found regarding "</span><span class="s5">${question}</span><span class="s1">": The content provides comprehensive coverage of this topic.</span><span class="s5">`,</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span>`</span><span class="s1">From analyzing your uploaded documents, I can provide information about "</span><span class="s5">${question}</span><span class="s1">". The relevant sections contain valuable details that answer your question.</span><span class="s5">`</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>];</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">return</span><span class="s1"> responses[</span><span class="s3">Math</span><span class="s1">.</span><span class="s6">floor</span><span class="s1">(</span><span class="s3">Math</span><span class="s1">.</span><span class="s6">random</span><span class="s1">() </span><span class="s6">*</span><span class="s1"> responses.length)];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">addMessage</span><span class="s1">(type, content) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> message </span><span class="s6">=</span><span class="s1"> </span><span class="s6">document</span><span class="s1">.</span><span class="s6">createElement</span><span class="s1">(</span><span class="s4">'div'</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>message.className </span><span class="s6">=</span><span class="s1"> `</span><span class="s4">message </span><span class="s1">${type}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>message.textContent </span><span class="s6">=</span><span class="s1"> content;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.chatMessages.</span><span class="s6">appendChild</span><span class="s1">(message);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.chatMessages.scrollTop </span><span class="s6">=</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.chatMessages.scrollHeight;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">updateStatus</span><span class="s1">(type, message) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.systemStatus.className </span><span class="s6">=</span><span class="s1"> `</span><span class="s4">status </span><span class="s1">${type}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.systemStatus.textContent </span><span class="s6">=</span><span class="s1"> message;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">showProgress</span><span class="s1">() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.progressBar.style.display </span><span class="s6">=</span><span class="s1"> </span><span class="s4">'block'</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.progressFill.style.width </span><span class="s6">=</span><span class="s1"> </span><span class="s4">'0%'</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">hideProgress</span><span class="s1">() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.progressBar.style.display </span><span class="s6">=</span><span class="s1"> </span><span class="s4">'none'</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">updateProgress</span><span class="s1">(percentage) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.progressFill.style.width </span><span class="s6">=</span><span class="s1"> `${percentage}</span><span class="s4">%</span><span class="s1">`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p6"><span class="s5"><span class="Apple-converted-space">            </span></span><span class="s1">updateDocumentsList</span><span class="s5">() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">if</span><span class="s1"> (</span><span class="s7">this</span><span class="s1">.documents.length </span><span class="s6">===</span><span class="s1"> </span><span class="s3">0</span><span class="s1">) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.documentsList.innerHTML </span><span class="s6">=</span><span class="s1"> `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;p style="color: #64748b; text-align: center; padding: 20px;"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>No documents uploaded yet</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">return</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.documentsList.innerHTML </span><span class="s6">=</span><span class="s1"> </span><span class="s7">this</span><span class="s1">.documents.</span><span class="s6">map</span><span class="s1">((doc, index) </span><span class="s6">=&gt;</span><span class="s1"> `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="document-item"&gt;</span></p>
+<p class="p3"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;span class="document-name"&gt;</span><span class="s5">${doc.name}</span><span class="s1">&lt;/span&gt;</span></p>
+<p class="p3"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;button class="remove-btn" onclick="ragInterface.removeDocument(</span><span class="s5">${index}</span><span class="s1">)"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>Remove</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p3"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s5">`).</span><span class="s6">join</span><span class="s5">(</span><span class="s1">''</span><span class="s5">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">removeDocument</span><span class="s1">(index) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.documents.</span><span class="s6">splice</span><span class="s1">(index, </span><span class="s3">1</span><span class="s1">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">updateDocumentsList</span><span class="s1">();</span></p>
+<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">if</span><span class="s1"> (</span><span class="s7">this</span><span class="s1">.documents.length </span><span class="s6">===</span><span class="s1"> </span><span class="s3">0</span><span class="s1">) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">disableChat</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s1">.</span><span class="s6">updateStatus</span><span class="s1">(</span><span class="s4">'ready'</span><span class="s1">, </span><span class="s4">'✅ System Ready'</span><span class="s1">);</span></p>
+<p class="p3"><span class="s5"><span class="Apple-converted-space">                    </span></span><span class="s7">this</span><span class="s5">.</span><span class="s6">addMessage</span><span class="s5">(</span><span class="s1">'system'</span><span class="s5">, </span><span class="s1">'All documents removed. Please upload new documents to continue.'</span><span class="s5">);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">enableChat</span><span class="s1">() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.questionInput.disabled </span><span class="s6">=</span><span class="s1"> </span><span class="s3">false</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.sendBtn.disabled </span><span class="s6">=</span><span class="s1"> </span><span class="s3">false</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.questionInput.placeholder </span><span class="s6">=</span><span class="s1"> </span><span class="s4">"Ask a question about your documents..."</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">disableChat</span><span class="s1">() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.questionInput.disabled </span><span class="s6">=</span><span class="s1"> </span><span class="s3">true</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.sendBtn.disabled </span><span class="s6">=</span><span class="s1"> </span><span class="s3">true</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">this</span><span class="s1">.questionInput.placeholder </span><span class="s6">=</span><span class="s1"> </span><span class="s4">"Upload documents first..."</span><span class="s1">;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s6">sleep</span><span class="s1">(ms) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">return</span><span class="s1"> </span><span class="s7">new</span><span class="s1"> </span><span class="s3">Promise</span><span class="s1">(resolve </span><span class="s6">=&gt;</span><span class="s1"> </span><span class="s6">setTimeout</span><span class="s1">(resolve, ms));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p7"><span class="s5"><span class="Apple-converted-space">        </span></span><span class="s1"><i>// Initialize the application</i></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> ragInterface </span><span class="s6">=</span><span class="s1"> </span><span class="s7">new</span><span class="s1"> </span><span class="s3">RAGInterface</span><span class="s1">();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/</span><span class="s2">script</span><span class="s1">&gt;</span></p>
+<p class="p2"><span class="s5">&lt;/</span><span class="s1">body</span><span class="s5">&gt;</span></p>
+<p class="p2"><span class="s5">&lt;/</span><span class="s1">html</span><span class="s5">&gt;</span></p>
+</body>
+</html>
