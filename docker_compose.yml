@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  rag-backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DEBUG=false
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./uploads:/app/uploads
+      - ./app.log:/app/app.log
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - rag-network
+
+networks:
+  rag-network:
+    driver: bridge
+
+volumes:
+  chroma_data:
+  upload_data:
