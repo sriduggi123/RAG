@@ -14,3 +14,5 @@ unstructured>=0.11.6
 markdown>=3.5.1
 python-dotenv>=1.0.0
 pydantic>=2.5.0
+langchain-chroma
+protobuf==3.20.3

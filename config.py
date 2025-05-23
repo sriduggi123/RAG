@@ -8,7 +8,7 @@ load_dotenv()
 
 class Config:
     """Configuration settings for the RAG LLM Backend"""
-    
+    os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
     # Server Configuration
     HOST = os.getenv("HOST", "0.0.0.0")
     PORT = int(os.getenv("PORT", 8000))

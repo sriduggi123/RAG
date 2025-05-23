@@ -17,3 +17,76 @@ If you cannot immediately regenerate your protos, some other possible workaround
  2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
 
 More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+2025-05-23 16:37:45,574 - llm_manager - INFO - OpenAI LLM initialized successfully
+2025-05-23 16:37:45,574 - llm_manager - INFO - Claude LLM initialized successfully
+2025-05-23 16:37:45,585 - llm_manager - INFO - Gemini LLM initialized successfully
+2025-05-23 16:37:45,585 - llm_manager - INFO - Initialized 3 LLMs: openai, claude, gemini
+2025-05-23 16:37:45,597 - rag_service - INFO - OpenAI embeddings initialized
+2025-05-23 16:37:46,138 - rag_service - ERROR - Error initializing vector store: Descriptors cannot be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+2025-05-23 16:37:46,139 - root - ERROR - Failed to start server: Descriptors cannot be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+2025-05-23 16:42:05,844 - llm_manager - INFO - OpenAI LLM initialized successfully
+2025-05-23 16:42:05,844 - llm_manager - INFO - Claude LLM initialized successfully
+2025-05-23 16:42:05,868 - llm_manager - INFO - Gemini LLM initialized successfully
+2025-05-23 16:42:05,868 - llm_manager - INFO - Initialized 3 LLMs: openai, claude, gemini
+2025-05-23 16:42:05,884 - rag_service - INFO - OpenAI embeddings initialized
+2025-05-23 16:42:06,028 - rag_service - ERROR - Error initializing vector store: Descriptors cannot be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+2025-05-23 16:42:06,028 - root - ERROR - Failed to start server: Descriptors cannot be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+2025-05-23 18:30:38,211 - root - ERROR - Failed to start server: Descriptors cannot be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+2025-05-23 18:31:01,538 - root - ERROR - Failed to start server: Descriptors cannot be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+2025-05-23 18:33:55,959 - root - ERROR - Failed to start server: Descriptors cannot be created directly.
+If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc >= 3.19.0.
+If you cannot immediately regenerate your protos, some other possible workarounds are:
+ 1. Downgrade the protobuf package to 3.20.x or lower.
+ 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).
+
+More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates
+2025-05-23 18:34:43,513 - llm_manager - INFO - OpenAI LLM initialized successfully
+2025-05-23 18:34:43,514 - llm_manager - INFO - Claude LLM initialized successfully
+2025-05-23 18:34:43,543 - llm_manager - INFO - Gemini LLM initialized successfully
+2025-05-23 18:34:43,543 - llm_manager - INFO - Initialized 3 LLMs: openai, claude, gemini
+2025-05-23 18:34:43,555 - rag_service - INFO - OpenAI embeddings initialized
+2025-05-23 18:34:43,569 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-05-23 18:34:44,173 - rag_service - INFO - Vector store initialized
+2025-05-23 19:36:50,632 - llm_manager - INFO - OpenAI LLM initialized successfully
+2025-05-23 19:36:50,632 - llm_manager - INFO - Claude LLM initialized successfully
+2025-05-23 19:36:50,656 - llm_manager - INFO - Gemini LLM initialized successfully
+2025-05-23 19:36:50,656 - llm_manager - INFO - Initialized 3 LLMs: openai, claude, gemini
+2025-05-23 19:36:50,672 - rag_service - INFO - OpenAI embeddings initialized
+2025-05-23 19:36:50,687 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-05-23 19:36:50,769 - rag_service - INFO - Vector store initialized

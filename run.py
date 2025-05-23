@@ -4,7 +4,6 @@ Startup script for the RAG LLM Backend
 """
 
 import sys
-print("Python executable:", sys.executable)
 import os
 import logging
 from pathlib import Path

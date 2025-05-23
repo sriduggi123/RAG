@@ -8,11 +8,12 @@ import random
 import uvicorn
 from pathlib import Path
 import shutil
-
+from dotenv import load_dotenv
 from rag_service import RAGService
 from llm_manager import LLMManager
 from document_processor import DocumentProcessor
 
+load_dotenv()
 app = FastAPI(title="RAG LLM Backend", version="1.0.0")
 
 # CORS middleware
