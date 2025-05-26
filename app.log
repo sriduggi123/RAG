@@ -90,3 +90,11 @@ More information: https://developers.google.com/protocol-buffers/docs/news/2022-
 2025-05-23 19:36:50,672 - rag_service - INFO - OpenAI embeddings initialized
 2025-05-23 19:36:50,687 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
 2025-05-23 19:36:50,769 - rag_service - INFO - Vector store initialized
+2025-05-24 16:23:10,905 - llm_manager - INFO - OpenAI LLM initialized successfully
+2025-05-24 16:23:10,905 - llm_manager - INFO - Claude LLM initialized successfully
+2025-05-24 16:23:10,934 - llm_manager - INFO - Gemini LLM initialized successfully
+2025-05-24 16:23:10,934 - llm_manager - INFO - Initialized 3 LLMs: openai, claude, gemini
+2025-05-24 16:23:14,486 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-24 16:23:18,452 - rag_service - INFO - HuggingFace embeddings initialized with model: sentence-transformers/all-MiniLM-L6-v2
+2025-05-24 16:23:18,474 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-05-24 16:23:18,577 - rag_service - INFO - Vector store initialized
