@@ -3,6 +3,7 @@ import logging
 from langchain.schema import Document
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from langchain_core.language_models import BaseChatModel
@@ -32,17 +33,27 @@ class RAGService:
     def _initialize_embeddings(self):
         """Initialize embedding model"""
         try:
-            # Try OpenAI embeddings first
-            openai_key = os.getenv("OPENAI_API_KEY")
-            if openai_key:
-                self.embeddings = OpenAIEmbeddings(
-                    api_key=openai_key,
-                    model="text-embedding-ada-002"
-                )
-                logger.info("OpenAI embeddings initialized")
-            else:
-                # Fallback to other embedding options if needed
-                raise ValueError("No embedding API key found")
+            # # Try OpenAI embeddings first
+            # openai_key = os.getenv("OPENAI_API_KEY")
+            # if openai_key:
+            #     self.embeddings = OpenAIEmbeddings(
+            #         api_key=openai_key,
+            #         model="text-embedding-ada-002"
+            #     )
+            #     logger.info("OpenAI embeddings initialized")
+            # else:
+            #     # Fallback to other embedding options if needed
+            #     raise ValueError("No embedding API key found")
+            
+            # --- START OF CHANGE ---
+            # Using a free and open-source embedding model from Hugging Face
+            model_name = "sentence-transformers/all-MiniLM-L6-v2"
+            self.embeddings = HuggingFaceEmbeddings(
+                model_name=model_name,
+                model_kwargs={'device': 'cpu'} # Use 'cuda' if you have a GPU
+            )
+            logger.info(f"HuggingFace embeddings initialized with model: {model_name}")
+            # --- END OF CHANGE ---
                 
         except Exception as e:
             logger.error(f"Error initializing embeddings: {e}")
@@ -117,7 +128,7 @@ Answer:"""
                 search_kwargs={"k": k}
             )
             
-            relevant_docs = retriever.get_relevant_documents(question)
+            relevant_docs = retriever.invoke(question)
             
             if not relevant_docs:
                 return {
@@ -199,5 +210,6 @@ Answer:"""
             "total_documents": len(self.documents),
             "available_llms": self.llm_manager.get_available_llms(),
             "vector_store_initialized": self.vector_store is not None,
-            "embeddings_model": "text-embedding-ada-002"
+            # "embeddings_model": "text-embedding-ada-002"
+            "embeddings_model": self.embeddings.model_name if hasattr(self.embeddings, 'model_name') else "Custom Open Source"
         }
