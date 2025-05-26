@@ -56,7 +56,7 @@ class LLMManager:
             try:
                 self.llms["gemini"] = ChatGoogleGenerativeAI(
                     api_key=google_api_key,
-                    model="gemini-pro",
+                    model="gemini-1.5-flash-latest",
                     temperature=0.7,
                     max_output_tokens=1000
                 )

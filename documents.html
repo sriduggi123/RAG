@@ -1,0 +1,143 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+            return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                    row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                    headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG LLM - Documents</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #docContainer { max-width: 800px; margin: 0 auto; }
+        #docList { list-style: none; padding: 0; }
+        #docList li { border-bottom: 1px solid #ddd; padding: 5px 0; }
+        #uploadArea { margin: 20px 0; }
+        button { padding: 5px 10px; }
+    </style>
+</head>
+<body>
+    <div id="docContainer">
+        <h1>Document Management</h1>
+        <p>Hello, <span id="userName">User</span>!</p>
+        <button onclick="window.location.href='chat.html'">Back to Chat</button>
+        <div id="uploadArea">
+            <input type="file" id="fileInput" multiple accept=".pdf,.txt,.docx,.md">
+            <button onclick="uploadFiles()">Upload Documents</button>
+        </div>
+        <ul id="docList"></ul>
+        <button onclick="clearDocuments()">Clear All Documents</button>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const BACKEND_URL = 'http://localhost:8000';
+
+        auth.onAuthStateChanged(async user => {
+            if (!user) {
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('userName').textContent = user.displayName || 'User';
+                listDocuments();
+            }
+        });
+
+        async function getIdToken() {
+            return await auth.currentUser.getIdToken();
+        }
+
+        async function listDocuments() {
+            const token = await getIdToken();
+            const response = await fetch(`${BACKEND_URL}/documents`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const data = await response.json();
+            const docList = document.getElementById('docList');
+            docList.innerHTML = '';
+            if (data.documents.length === 0) {
+                docList.innerHTML = '<li>No documents uploaded yet</li>';
+            } else {
+                data.documents.forEach(doc => {
+                    const li = document.createElement('li');
+                    li.textContent = `${doc.source} (${doc.chunks} chunks, Processed: ${doc.processed ? 'Yes' : 'No'})`;
+                    docList.appendChild(li);
+                });
+            }
+        }
+
+        async function uploadFiles() {
+            const files = document.getElementById('fileInput').files;
+            if (files.length === 0) return;
+
+            const formData = new FormData();
+            for (const file of files) {
+                formData.append('files', file);
+            }
+            const token = await getIdToken();
+            await fetch(`${BACKEND_URL}/upload`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: formData
+            });
+            listDocuments();
+        }
+
+        async function clearDocuments() {
+            const token = await getIdToken();
+            await fetch(`${BACKEND_URL}/documents`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            listDocuments();
+        }
+    </script>
+</body>
+</html>
