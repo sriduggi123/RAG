@@ -1,50 +1,9 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-            return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                    row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                    headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAG LLM - Chat</title>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         #chatContainer { max-width: 800px; margin: 0 auto; }
@@ -58,28 +17,37 @@
     <div id="chatContainer">
         <h1>RAG LLM Chat</h1>
         <p>Hello, <span id="userName">User</span>!</p>
-        <button onclick="window.location.href='documents.html'">Manage Documents</button>
+        <button id="manageDocsBtn">Manage Documents</button>
         <div id="status">Checking system status...</div>
         <div id="response"></div>
         <input type="text" id="questionInput" placeholder="Type your question here">
-        <button onclick="askQuestion()">Send</button>
+        <button id="askQnBtn">Send</button>
     </div>
 
-    <script>
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        firebase.initializeApp(firebaseConfig);
+    <script type="module">
+        document.getElementById('manageDocsBtn').addEventListener('click', () => {
+            window.location.href = 'documents.html';
+        });
+        document.getElementById('askQnBtn').addEventListener('click', askQuestion);
+        
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getAuth, onAuthStateChanged, getIdToken } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
 
-        const auth = firebase.auth();
+        const firebaseConfig = {
+            apiKey: "AIzaSyDCJ5RG-hfpdC1uNc44T1KaLrELM1Mud7o",
+            authDomain: "rag-user-management.firebaseapp.com",
+            projectId: "rag-user-management",
+            storageBucket: "rag-user-management.firebasestorage.app",
+            messagingSenderId: "741967144538",
+            appId: "1:741967144538:web:8ca101a2c13f14ef141a63",
+            measurementId: "G-KXMMMX2YTZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         const BACKEND_URL = 'http://localhost:8000';
 
-        auth.onAuthStateChanged(async user => {
+        onAuthStateChanged(auth, async user => {
             if (!user) {
                 window.location.href = 'index.html';
             } else {
@@ -88,12 +56,12 @@
             }
         });
 
-        async function getIdToken() {
-            return await auth.currentUser.getIdToken();
+        async function fetchIdToken() {
+            return await getIdToken(auth.currentUser);
         }
 
         async function updateStatus() {
-            const token = await getIdToken();
+            const token = await fetchIdToken();
             const response = await fetch(`${BACKEND_URL}/status`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -105,7 +73,7 @@
             const question = document.getElementById('questionInput').value;
             if (!question) return;
 
-            const token = await getIdToken();
+            const token = await fetchIdToken();
             const response = await fetch(`${BACKEND_URL}/ask`, {
                 method: 'POST',
                 headers: {
