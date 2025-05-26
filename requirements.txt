@@ -18,3 +18,5 @@ langchain-chroma
 protobuf==3.20.3
 langchain-huggingface>-0.2.0
 sentence-transformers>=4.1.0
+firebase>=4.0.1
+firebase-admin>=6.8.0
