@@ -43,6 +43,13 @@ Answer:"""
             persist_directory="./chroma_db"
         )
 
+    def _get_common_vector_store(self):
+        return Chroma(
+            collection_name="common_knowledge",
+            embedding_function=self.embeddings,
+            persist_directory="./chroma_db"
+        )
+
     def add_documents(self, user_id: str, documents: List[Document]):
         try:
             if not documents:
@@ -56,6 +63,50 @@ Answer:"""
             raise
 
     def get_answer(self, user_id: str, question: str, k: int = 4) -> Dict[str, Any]:
+        try:
+            # Get vector stores
+            user_vector_store = self._get_vector_store(user_id)
+            common_vector_store = self._get_common_vector_store()
+
+            # Retrieve documents with scores
+            user_docs_with_scores = user_vector_store.similarity_search_with_score(question, k=k)
+            common_docs_with_scores = common_vector_store.similarity_search_with_score(question, k=k)
+
+            # Combine and sort by score (lower distance = more similar)
+            all_docs_with_scores = user_docs_with_scores + common_docs_with_scores
+            if not all_docs_with_scores:
+                return {"answer": "Nothing relevant found.", "sources": [], "llm_used": "none"}
+
+            all_docs_with_scores.sort(key=lambda x: x[1])  # Ascending for cosine distance
+            top_k_docs_with_scores = all_docs_with_scores[:k]
+
+            # Extract documents and build context
+            top_k_docs = [doc for doc, score in top_k_docs_with_scores]
+            if not top_k_docs:
+                return {"answer": "Nothing relevant found.", "sources": [], "llm_used": "none"}
+
+            context = "\n\n".join([doc.page_content for doc in top_k_docs])
+
+            # Collect sources
+            sources = set([doc.metadata.get('source', 'Unknown') for doc in top_k_docs])
+
+            # Generate answer
+            llm, llm_name = self.llm_manager.get_random_llm()
+            prompt = self.prompt_template.format(context=context, question=question)
+            response = llm.invoke(prompt)
+            answer_text = response.content if hasattr(response, 'content') else str(response)
+
+            return {
+                "answer": answer_text,
+                "sources": list(sources),
+                "llm_used": llm_name
+            }
+        except Exception as e:
+            logger.error(f"Error generating answer: {e}")
+            raise
+
+
+    def getAnswer(self, user_id: str, question: str, k: int = 4) -> Dict[str, Any]:
         try:
             vector_store = self._get_vector_store(user_id)
             if vector_store._collection.count() == 0:
