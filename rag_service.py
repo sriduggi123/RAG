@@ -115,6 +115,30 @@ Answer:"""
             logger.error(f"Error clearing documents: {e}")
             raise
 
-    def get_document_count(self, user_id: str) -> int:
+    def getDocumentCount(self, user_id: str) -> int:
         vector_store = self._get_vector_store(user_id)
         return vector_store._collection.count()
+    
+    def getDocumentsCount(self, userId: str) -> int:
+        try:
+            vectorStore = self._get_vector_store(userId)
+            results = vectorStore._collection.get(include=['metadatas'])
+            sources = {metadata.get('source', 'Unknown') for metadata in results['metadatas']}
+            return len(sources)
+        except Exception as e:
+            logger.error(f"Error counting documents: {e}")
+            return 0
+        
+    def get_document_count(self, userId: str) -> int:
+        try:
+            vectorStore = self._get_vector_store(userId)
+            results = vectorStore._collection.get(include=['metadatas'])
+            if not results['metadatas']:
+                logger.info(f"No metadata found for user {userId}")
+                return 0
+            sources = {metadata.get('source', '') for metadata in results['metadatas'] if metadata.get('source')}
+            logger.info(f"User {userId} has {len(sources)} unique documents")
+            return len(sources)
+        except Exception as e:
+            logger.error(f"Error counting documents for user {userId}: {e}")
+            return 0
