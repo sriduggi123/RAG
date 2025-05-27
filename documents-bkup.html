@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG LLM - Documents</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #docContainer { max-width: 800px; margin: 0 auto; }
+        #docList { list-style: none; padding: 0; }
+        #docList li { border-bottom: 1px solid #ddd; padding: 5px 0; }
+        #uploadArea { margin: 20px 0; }
+        button { padding: 5px 10px; }
+    </style>
+</head>
+<body>
+    <div id="docContainer">
+        <h1>Document Management</h1>
+        <p>Hello, <span id="userName">User</span>!</p>
+        <button onclick="window.location.href='chat.html'">Back to Chat</button>
+        <div id="uploadArea">
+            <input type="file" id="fileInput" multiple accept=".pdf,.txt,.docx,.md">
+            <button id="uploadBtn">Upload Documents</button>
+        </div>
+        <ul id="docList"></ul>
+        <button id="clearBtn">Clear All Documents</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getAuth, onAuthStateChanged, getIdToken } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDCJ5RG-hfpdC1uNc44T1KaLrELM1Mud7o",
+            authDomain: "rag-user-management.firebaseapp.com",
+            projectId: "rag-user-management",
+            storageBucket: "rag-user-management.firebasestorage.app",
+            messagingSenderId: "741967144538",
+            appId: "1:741967144538:web:8ca101a2c13f14ef141a63",
+            measurementId: "G-KXMMMX2YTZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const BACKEND_URL = 'http://localhost:8000';
+
+        onAuthStateChanged(auth, async user => {
+            if (!user) {
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('userName').textContent = user.displayName || 'User';
+                listDocuments();
+            }
+        });
+
+        async function fetchIdToken() {
+            return await getIdToken(auth.currentUser);
+        }
+
+        async function listDocuments() {
+            const token = await fetchIdToken();
+            const response = await fetch(`${BACKEND_URL}/documents`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const data = await response.json();
+            const docList = document.getElementById('docList');
+            docList.innerHTML = '';
+            if (data.documents.length === 0) {
+                docList.innerHTML = '<li>No documents uploaded yet</li>';
+            } else {
+                data.documents.forEach(doc => {
+                    const li = document.createElement('li');
+                    li.textContent = `${doc.source} (${doc.chunks} chunks, Processed: ${doc.processed ? 'Yes' : 'No'})`;
+                    docList.appendChild(li);
+                });
+            }
+        }
+
+        async function uploadFiles() {
+            const files = document.getElementById('fileInput').files;
+            if (files.length === 0) return;
+
+            const formData = new FormData();
+            for (const file of files) {
+                formData.append('files', file);
+            }
+            const token = await fetchIdToken();
+            await fetch(`${BACKEND_URL}/upload`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: formData
+            });
+            listDocuments();
+        }
+
+        async function clearDocuments() {
+            const token = await fetchIdToken();
+            await fetch(`${BACKEND_URL}/documents`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            listDocuments();
+        }
+
+        // Attach event listeners
+        document.getElementById('uploadBtn').addEventListener('click', uploadFiles);
+        document.getElementById('clearBtn').addEventListener('click', clearDocuments);
+    </script>
+</body>
+</html>

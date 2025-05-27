@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG LLM - Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #chatContainer { max-width: 800px; margin: 0 auto; }
+        #status { color: #666; margin-bottom: 10px; }
+        #response { border: 1px solid #ddd; padding: 10px; min-height: 100px; }
+        #questionInput { width: 70%; padding: 5px; }
+        button { padding: 5px 10px; }
+    </style>
+</head>
+<body>
+    <div id="chatContainer">
+        <h1>RAG LLM Chat</h1>
+        <p>Hello, <span id="userName">User</span>!</p>
+        <button id="manageDocsBtn">Manage Documents</button>
+        <div id="status">Checking system status...</div>
+        <div id="response"></div>
+        <input type="text" id="questionInput" placeholder="Type your question here">
+        <button id="askQnBtn">Send</button>
+        <br><br><button id="signOutBtn">Sign Out</button>
+    </div>
+
+    <script type="module">
+        document.getElementById('manageDocsBtn').addEventListener('click', () => {
+            window.location.href = 'documents.html';
+        });
+        document.getElementById('askQnBtn').addEventListener('click', askQuestion);
+        document.getElementById('signOutBtn').addEventListener('click', signOutUser);
+        
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getAuth, onAuthStateChanged, getIdToken , signOut} from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDCJ5RG-hfpdC1uNc44T1KaLrELM1Mud7o",
+            authDomain: "rag-user-management.firebaseapp.com",
+            projectId: "rag-user-management",
+            storageBucket: "rag-user-management.firebasestorage.app",
+            messagingSenderId: "741967144538",
+            appId: "1:741967144538:web:8ca101a2c13f14ef141a63",
+            measurementId: "G-KXMMMX2YTZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const BACKEND_URL = 'http://localhost:8000';
+
+        onAuthStateChanged(auth, async user => {
+            if (!user) {
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('userName').textContent = user.displayName || 'User';
+                updateStatus();
+            }
+        });
+
+        async function fetchIdToken() {
+            return await getIdToken(auth.currentUser);
+        }
+
+        // async function updateStatus() {
+        //     const token = await fetchIdToken();
+        //     const response = await fetch(`${BACKEND_URL}/status`, {
+        //         headers: { 'Authorization': `Bearer ${token}` }
+        //     });
+        //     const data = await response.json();
+        //     document.getElementById('status').textContent = data.message;
+        // }
+        async function updateStatus() {
+            try {
+                const token = await fetchIdToken();
+                const statusResponse = await fetch(`${BACKEND_URL}/status`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!statusResponse.ok) throw new Error(`Status request failed: ${statusResponse.status}`);
+                const statusData = await statusResponse.json();
+                const docCount = statusData.documents_count;
+                let statusMessage = 'No documents uploaded';
+                if (docCount > 0) {
+                    const chunkCount = await getChunkCount();
+                    statusMessage = `System ready with ${docCount} document(s) (${chunkCount} chunk${chunkCount !== 1 ? 's' : ''})`;
+                }
+                document.getElementById('status').textContent = statusMessage;
+            } catch (error) {
+                console.error('Error updating status:', error);
+                document.getElementById('status').textContent = 'Error fetching status';
+            }
+        }
+
+        async function getChunkCount() {
+            try {
+                const token = await fetchIdToken();
+                const response = await fetch(`${BACKEND_URL}/documents`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!response.ok) throw new Error(`Documents request failed: ${response.status}`);
+                const data = await response.json();
+                return data.documents.reduce((total, doc) => total + doc.chunks, 0);
+            } catch (error) {
+                console.error('Error fetching chunk count:', error);
+                return 0;
+            }
+        }
+
+        async function askQuestion() {
+            const question = document.getElementById('questionInput').value;
+            if (!question) return;
+
+            const token = await fetchIdToken();
+            const response = await fetch(`${BACKEND_URL}/ask`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ question })
+            });
+            const data = await response.json();
+            document.getElementById('response').innerHTML = `
+                <p><strong>Answer:</strong> ${data.answer}</p>
+                <p><strong>Sources:</strong> ${data.sources.join(', ')}</p>
+                <p><strong>LLM Used:</strong> ${data.llm_used}</p>
+            `;
+            document.getElementById('questionInput').value = '';
+        }
+        async function signOutUser() {
+            try {
+                await signOut(auth);
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Sign-out failed:', error);
+                alert('Failed to sign out: ' + error.message);
+            }
+        }
+
+    </script>
+</body>
+</html>

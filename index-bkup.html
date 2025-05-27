@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG LLM - Sign In</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to RAG LLM</h1>
+    <p>Please sign in with Google to continue</p>
+    <button id="signInBtn">Sign In with Google</button>
+
+    <script type="module">
+        // Import Firebase SDK modules
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDCJ5RG-hfpdC1uNc44T1KaLrELM1Mud7o",
+            authDomain: "rag-user-management.firebaseapp.com",
+            projectId: "rag-user-management",
+            storageBucket: "rag-user-management.firebasestorage.app",
+            messagingSenderId: "741967144538",
+            appId: "1:741967144538:web:8ca101a2c13f14ef141a63",
+            measurementId: "G-KXMMMX2YTZ"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                window.location.href = 'chat.html';
+            }
+        });
+
+        document.getElementById('signInBtn').addEventListener('click', () => {
+            signInWithPopup(auth, provider)
+                .catch(error => {
+                    console.error('Sign-in error:', error);
+                    alert('Failed to sign in: ' + error.message);
+                });
+        });
+    </script>
+</body>
+</html>
