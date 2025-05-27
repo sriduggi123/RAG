@@ -22,6 +22,7 @@
         <div id="response"></div>
         <input type="text" id="questionInput" placeholder="Type your question here">
         <button id="askQnBtn">Send</button>
+        <br><br><button id="signOutBtn">Sign Out</button>
     </div>
 
     <script type="module">
@@ -29,9 +30,10 @@
             window.location.href = 'documents.html';
         });
         document.getElementById('askQnBtn').addEventListener('click', askQuestion);
+        document.getElementById('signOutBtn').addEventListener('click', signOutUser);
         
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-        import { getAuth, onAuthStateChanged, getIdToken } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+        import { getAuth, onAuthStateChanged, getIdToken , signOut} from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyDCJ5RG-hfpdC1uNc44T1KaLrELM1Mud7o",
@@ -60,13 +62,48 @@
             return await getIdToken(auth.currentUser);
         }
 
+        // async function updateStatus() {
+        //     const token = await fetchIdToken();
+        //     const response = await fetch(`${BACKEND_URL}/status`, {
+        //         headers: { 'Authorization': `Bearer ${token}` }
+        //     });
+        //     const data = await response.json();
+        //     document.getElementById('status').textContent = data.message;
+        // }
         async function updateStatus() {
-            const token = await fetchIdToken();
-            const response = await fetch(`${BACKEND_URL}/status`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            const data = await response.json();
-            document.getElementById('status').textContent = data.message;
+            try {
+                const token = await fetchIdToken();
+                const statusResponse = await fetch(`${BACKEND_URL}/status`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!statusResponse.ok) throw new Error(`Status request failed: ${statusResponse.status}`);
+                const statusData = await statusResponse.json();
+                const docCount = statusData.documents_count;
+                let statusMessage = 'No documents uploaded';
+                if (docCount > 0) {
+                    const chunkCount = await getChunkCount();
+                    statusMessage = `System ready with ${docCount} document(s) (${chunkCount} chunk${chunkCount !== 1 ? 's' : ''})`;
+                }
+                document.getElementById('status').textContent = statusMessage;
+            } catch (error) {
+                console.error('Error updating status:', error);
+                document.getElementById('status').textContent = 'Error fetching status';
+            }
+        }
+
+        async function getChunkCount() {
+            try {
+                const token = await fetchIdToken();
+                const response = await fetch(`${BACKEND_URL}/documents`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!response.ok) throw new Error(`Documents request failed: ${response.status}`);
+                const data = await response.json();
+                return data.documents.reduce((total, doc) => total + doc.chunks, 0);
+            } catch (error) {
+                console.error('Error fetching chunk count:', error);
+                return 0;
+            }
         }
 
         async function askQuestion() {
@@ -90,6 +127,16 @@
             `;
             document.getElementById('questionInput').value = '';
         }
+        async function signOutUser() {
+            try {
+                await signOut(auth);
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Sign-out failed:', error);
+                alert('Failed to sign out: ' + error.message);
+            }
+        }
+
     </script>
 </body>
 </html>
