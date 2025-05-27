@@ -1,2 +1,8 @@
 .env
 rag-user-management-firebase-adminsdk-fbsvc-c610474d20.json
+firebase-adminsdk-new.json
+*.log
+__pycache__/
+node_modules/
+venv/
+uploads/
