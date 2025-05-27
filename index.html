@@ -1,53 +1,62 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAG LLM - Sign In</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <h1>Welcome to RAG LLM</h1>
-    <p>Please sign in with Google to continue</p>
-    <button id="signInBtn">Sign In with Google</button>
-
-    <script type="module">
-        // Import Firebase SDK modules
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
-
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDCJ5RG-hfpdC1uNc44T1KaLrELM1Mud7o",
-            authDomain: "rag-user-management.firebaseapp.com",
-            projectId: "rag-user-management",
-            storageBucket: "rag-user-management.firebasestorage.app",
-            messagingSenderId: "741967144538",
-            appId: "1:741967144538:web:8ca101a2c13f14ef141a63",
-            measurementId: "G-KXMMMX2YTZ"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        onAuthStateChanged(auth, user => {
-            if (user) {
-                window.location.href = 'chat.html';
-            }
-        });
-
-        document.getElementById('signInBtn').addEventListener('click', () => {
-            signInWithPopup(auth, provider)
-                .catch(error => {
-                    console.error('Sign-in error:', error);
-                    alert('Failed to sign in: ' + error.message);
-                });
-        });
-    </script>
+<body class="dark-theme">
+    <div class="login-container">
+        <div class="login-card">
+            <h1>RAG LLM</h1>
+            <p>Please sign in with Google to continue</p>
+            <button id="signInBtn" class="google-btn">
+                <img src="https://www.google.com/favicon.ico" alt="Google Icon">
+                Sign In with Google
+            </button>
+            <div id="error" class="error-message"></div>
+        </div>
+    </div>
+    <script type="module" src="app.js"></script>
 </body>
 </html>
